@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ```bash
 # Sin ofuscar
-pyinstaller  --onefile  --hidden-import  cryptography.hazmat.primitives
+pyinstaller  --onefile  --hidden-import  cryptography.hazmat.primitives ./client.py
 
 # Compilado ofuscado
 pyarmor  gen  ./client.py
