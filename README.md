@@ -1,73 +1,72 @@
 # SMB Shell
 
-SMB Shell es una herramienta diseñada para manejar comunicaciones entre un atacante y una víctima a través de una conexión de un servidor SMB externo, permitiendo estabilizar una terminal interactiva de manera cifrada.
+SMB Shell is a tool designed to handle communications between an attacker and a victim through an external SMB server connection, allowing to stabilize an interactive terminal in an encrypted manner.
 
-## Características
+## Features
 
-- Envío y recepción de comandos y respuestas mediante SMB.
-- Cifrado de datos con AES y RSA.
-- Generación dinámica de claves públicas y privadas.
-- Ejecución remota de comandos cifrados.
-- Comunicación bidireccional segura entre cliente y servidor.
+- Sending and receiving commands and responses via SMB.
+- Data encryption with AES and RSA.
+- Dynamic generation of public and private keys.
+- Remote execution of encrypted commands.
+- Secure bidirectional communication between client and server.
 
-## Instalacion
+## Installation
 
-```bash 
+```bash
 git clone https://github.com/vpanal/smbshell.git
 cd smbshell
 pip install -r requirements.txt
 ```
 
-## Compilado de client.py
+## Compiling client.py
 
 ```bash
-# Sin ofuscar
-pyinstaller  --onefile  --hidden-import  cryptography.hazmat.primitives ./client.py
+# Without obfuscation
+pyinstaller --onefile --hidden-import cryptography.hazmat.primitives ./client.py
 
-# Compilado ofuscado
-pyarmor  gen  ./client.py
+# Obfuscated compilation
+pyarmor gen ./client.py
 cd dist
-pyinstaller  --onefile  --add-data  "pyarmor_runtime_000000;pyarmor_runtime_000000"  --hidden-import  cryptography.hazmat.primitives  --hidden-import  cryptography.hazmat.primitives.serialization  --hidden-import  smb  --hidden-import  smb.SMBConnection  --hidden-import  cryptography.hazmat.primitives.padding  client.py
-
+pyinstaller --onefile --add-data "pyarmor_runtime_000000;pyarmor_runtime_000000" --hidden-import cryptography.hazmat.primitives --hidden-import cryptography.hazmat.primitives.serialization --hidden-import smb --hidden-import smb.SMBConnection --hidden-import cryptography.hazmat.primitives.padding client.py
 ```
 
-## Configuración
+## Configuration
 
-Se deben modificar los parámetros internos de los archivos client.py y server.py para la correcta configuración del servidor SMB y los tiempos de respuesta.
+The internal parameters of the client.py and server.py files must be modified for the correct configuration of the SMB server and response times.
 
-## Uso
+## Usage
 
-### Ejemplo básico:
+### Basic example:
 
-1. Inicia el servidor ejecutando `server.py`:
+1. Start the server by running `server.py`:
 
 ```bash
 python server.py
 ```
 
-2. Inicia el cliente ejecutando `client.py`:
+2. Start the client by running `client.py`:
 
 ```bash
 python client.py
 ```
 
-### Comandos del servidor
+### Server commands
 
-- **`help`**: Muestra una lista de comandos disponibles.
-- **`quit`**: Cierra la sesión del atacante.
-- **`exit`**: Finaliza la conexión con el cliente.
-- Enviar un comando: Escribe cualquier comando válido de shell para ejecutarlo en el cliente.
+- **`help`**: Displays a list of available commands.
+- **`quit`**: Closes the attacker's session.
+- **`exit`**: Ends the connection with the client.
+- Send a command: Type any valid shell command to execute it on the client.
 
-### Notas
+### Notes
 
-- Los archivos temporales se generan para manejar claves y datos, y se eliminan automáticamente después de su uso.
-- Si quieres cerrar la sesión del cliente, utiliza el comando `exit`.
+- Temporary files are generated to handle keys and data, and are automatically deleted after use.
+- If you want to close the client's session, use the `exit` command.
 
 ## Demo
 
-### Flujo de ejecucion
+### Execution flow
 
-A continuacion se muestra el flujo de ejecuccion de la aplicacion por defecto.
+Below is the default execution flow of the application.
 
 ```mermaid
 sequenceDiagram
@@ -96,18 +95,18 @@ Note right of client.py: Return to check step.
 client.py -->> SMB: Check if command.txt exists.
 ```
 
-### Demostración de uso
+### Usage demonstration
 
-<p align="left"><img width=100% alt="Demostración de uso" src="https://github.com/vpanal/smbshell/blob/main/assets/demo.gif"></p>
+<p align="left"><img width=100% alt="Usage demonstration" src="https://github.com/vpanal/smbshell/blob/main/assets/demo.gif"></p>
 
-## Notas de seguridad
+## Security notes
 
-Este script está diseñado únicamente para propósitos educativos y de pruebas en entornos controlados.  **No lo uses en sistemas sin autorización explícita.**
+This script is designed for educational purposes and testing in controlled environments only. **Do not use it on systems without explicit authorization.**
 
-## Contribuciones
+## Contributions
 
-Si deseas contribuir, realiza un fork del repositorio, haz tus cambios y envía un pull request.
+If you want to contribute, fork the repository, make your changes, and send a pull request.
 
-## Licencia
+## License
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo  `LICENSE`  para más detalles.
+This project is under the MIT License. See the `LICENSE` file for more details.
